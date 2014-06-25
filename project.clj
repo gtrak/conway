@@ -27,10 +27,13 @@
                         :source-paths ["src"]
                         ;; The standard ClojureScript compiler options:
                         ;; (See the ClojureScript compiler documentation for details.)
-                        :compiler {:preamble ["react/react.js"]
-                                   :output-to "resources/public/cljs-app.js"  ; default: target/cljsbuild-main.js
-                                   :optimizations :whitespace
-                                   :pretty-print true}
+                        :compiler {:output-to "cljs-app.js"  ; default: target/cljsbuild-main.js
+                                   :optimizations :advanced
+                                   :source-map "cljs-app.js.map"
+                                   :pretty-print false
+                                   :preamble ["react/react.min.js"]
+                                   :externs ["react/externs/react.js"]
+                                   }
                         }
                        ]
 }
