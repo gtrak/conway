@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Conway's game of Life!</title>
+    <link href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <script>
+    window.onload=function(){
+    $.getScript( "cljs-app.js" )
+      .done(function(){
+        conway.core.init();
+        weasel.repl.connect("ws://localhost:9001"); 
+      })
+    };
+  </script>
+
+</html>

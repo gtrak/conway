@@ -1,0 +1,19 @@
+.on {
+    background-color: #000000 !important;
+}
+
+.off {
+    background-color: #ffffff !important;
+}
+
+td {
+    width: 10px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+tr {
+    height: 10px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
