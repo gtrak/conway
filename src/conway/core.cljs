@@ -40,13 +40,18 @@
 
 (defn on?
   [truthy-neighbors current]
-  (cond
-   (> 2 truthy-neighbors) false
-   ;; has to be above the 'current' rule, I think
-   (= 3 truthy-neighbors) true
-   ;; lives on if it's already alive
-   (>= 3 truthy-neighbors 2) current
-   (< 3 truthy-neighbors) false))
+  (if current
+    ;; it's on
+    (cond
+     (> 2 truthy-neighbors) false
+     ;; lives on if it's already alive
+     (= 3 truthy-neighbors) true
+     (= 2 truthy-neighbors) true
+     (< 3 truthy-neighbors) false)
+    ;; it's off
+    (if (= 3 truthy-neighbors)
+      true
+      false)))
 
 (defn update [grid]
   (let [indices (range (count grid))
@@ -91,14 +96,14 @@
              [:tbody
               (om/build-all row data)]]))))
 
-
 (defn rand-seq
   []
   (map (partial > 5) (repeatedly #(rand-int 10))))
 
-(def app-state (atom (->> (conj (take 38 (repeat (take 40 (repeat 0))))
-                                (take 40 (rand-seq))
-                                (take 40 (rand-seq)))
+(def app-state (atom (->> (conj (take 38 (repeat (take 41 (repeat false))))
+                                (take 41 (rand-seq))
+                                (take 41 (rand-seq))
+                                (take 41 (rand-seq)))
                           shuffle
                           (mapv vec))))
 
