@@ -1,43 +1,5 @@
 (ns conway.core)
 
-
-(def cases
-  (partition 2 [;; fewer than 2 dies
-                [[false false false]
-                 [false true false]
-                 [false false false]]
-                [[false false false]
-                 [false false false]
-                 [false false false]]
-                ;; they just die
-                [[true true false]
-                 [false false false]
-                 [false false false]]
-                [[false false false]
-                 [false false false]
-                 [false false false]]
-                ;; two or three lives on, middle flips on
-                [[true true false]
-                 [true false false]
-                 [false false false]]
-                [[true true false]
-                 [true true false]
-                 [false false false]]
-                ;; more than 3 neighbors, dies
-                [[true true true]
-                 [true true false]
-                 [false false false]]
-                [[true false true]
-                 [true false true]
-                 [false false false]]
-                ;; boundary, everything false
-                [[false true false]
-                 [true false true]
-                 [false true false]]
-                [[false false false]
-                 [false false true]
-                 [false false false]]]))
-
 (def offsets
   [[-1 -1] [0 -1] [1 -1]
    [-1 0]         [1 0]
@@ -51,7 +13,6 @@
 (defn truthy-neighbors
   [grid [x y :as coord]]
   ;; -1 0 1 for xy , except [0,0]
-  ;; boundary cases
   (let [max (dec (count grid))
         min 0
         neighboring (neighboring-coords coord)]
@@ -65,10 +26,13 @@
 
 (defn on?
   [truthy-neighbors current]
-  ;; rules
-
-  
-  )
+  (cond
+   (> 2 truthy-neighbors) false
+   ;; has to be above the 'current' rule, I think
+   (= 3 truthy-neighbors) true
+   ;; lives on if it's already alive
+   (>= 3 truthy-neighbors 2) current
+   (< 3 truthy-neighbors) false))
 
 (defn update [grid]
   (let [indices (range (count grid))
@@ -83,7 +47,7 @@
      grid
      coords)))
 
-
+;; assumptions
 ;; square grid
 
 
